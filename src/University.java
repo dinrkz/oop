@@ -49,5 +49,7 @@ public class University {
     public void setCourse(String course) {
         this.course = course;
     }
-
+    public void showInfo(){
+        System.out.println("University:"+name+", created in "+year+". Location: "+location+". Education direct its a "+educationdirect+". Teached:"+course+" courses.");
+    }
 }

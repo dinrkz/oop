@@ -4,8 +4,7 @@ public class Professor {
     private String dep;
     private int experience;
     private String knowledge;
-    private String personalqual;
-
+    String personalqual;
     public Professor(String name, int age, String dep, int experience, String knowledge,String personalqual){
         this.name=name;
         this.age=age;
@@ -65,6 +64,6 @@ public class Professor {
         this.personalqual = personalqual;
     }
     public void showInfo(){
-        System.out.println("Professor:"+name+","+age+"years old. Department: "+dep+" work experience: "+experience" years,Study knowledge: "+knowledge+" and Personal Quality: "+personalqual);
+        System.out.println("Professor:"+name+","+age+"years old. Department: "+dep+" work experience: "+experience+" years,Study knowledge: "+knowledge+" and Personal Quality: "+personalqual);
     }
 }
