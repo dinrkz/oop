@@ -13,8 +13,8 @@ public class Main{
                                 "3-showing everything \n" +
                                 "4-sorting tables\n" +
                                 "5-quit \n" +
-                                "6-show Tables from DB  \n" +
-                                "7-update data(University/Professor");
+                                "6-show Tables from DB \n" +
+                                "7-update data(University/Professor)");
                         System.out.print("Choose your number:");
                         int a = in.nextInt();
                         in.nextLine();
