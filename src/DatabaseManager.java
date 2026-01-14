@@ -8,6 +8,10 @@ public class DatabaseManager {
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
+
+
+
+
     public void saveUniversity(University uni) {
         String sql = "INSERT INTO universities (name, location, education_direction, creation_year, course) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = getConnection();
@@ -37,6 +41,14 @@ public class DatabaseManager {
             System.out.println("Error saving professor: " + e.getMessage());
         }
     }
+
+
+
+
+
+
+
+
     public void deleteUniversity(String name) {
         String sql = "DELETE FROM universities WHERE name = ?";
         try (Connection conn = getConnection();
@@ -45,7 +57,88 @@ public class DatabaseManager {
             int deleted = pstmt.executeUpdate();
             if (deleted > 0) System.out.println("University deleted from DB.");
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Error deleting university: " + e.getMessage());
+        }
+    }
+    public void deleteProfessor(int id) {
+        String sql = "DELETE FROM professors WHERE id = ?";
+        try(Connection conn=getConnection();
+            PreparedStatement pstmt=conn.prepareStatement(sql)) {
+            pstmt.setInt(1,id);
+            int deleted=pstmt.executeUpdate();
+            if (deleted > 0) System.out.println("Professor deleted from DB.");
+            else System.out.println("Professor not deleted from DB.");
+        }catch (SQLException e) {
+            System.out.println("Error deleting Professor: " + e.getMessage());
+        }
+
+    }
+
+
+
+
+    public void updateUniversityLocation(int id, String location) {
+        String sql = "UPDATE universities SET location = ? WHERE id = ?";
+        try (Connection conn= getConnection();
+             PreparedStatement ps= conn.prepareStatement(sql)){
+
+            ps.setInt(1,id);
+            ps.setString(2,location);
+            ps.executeUpdate();
+        }catch(SQLException e) {
+            System.out.println("Error saving university: " + e.getMessage());
+        }
+    }
+    public void updateProfessorExperience(String name, int newExp) {
+        String sql = "UPDATE professors SET experience = ? WHERE name = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, newExp);
+            ps.setString(2, name);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error saving Professor: " + e.getMessage());
+        }
+    }
+
+
+
+
+
+
+
+
+
+    public void UniversitiessortedbyYear(){
+        String sql = "SELECT * FROM universities ORDER BY creation_year ASC";
+        try(Connection conn=getConnection();
+            Statement stmt=conn.createStatement();
+            ResultSet rs=stmt.executeQuery(sql)) {
+            System.out.println("Universities sorted by year");
+            while (rs.next()) {
+                System.out.println("ID: " + rs.getInt("id") +
+                        "| Name: " + rs.getString("name") +
+                        "| Year: " + rs.getInt("creation_year"));
+            }
+        } catch(SQLException e){
+                System.out.println("Error: " + e.getMessage());
+        }
+    }
+    public void ProfessorssortedbyYear(){
+        String sql = "SELECT * FROM professors ORDER BY experience ASC";
+        try(Connection conn=getConnection();
+            Statement stmt=conn.createStatement();
+            ResultSet rs=stmt.executeQuery(sql)){
+            System.out.println("Professors sorted by year");
+            while(rs.next()){
+                System.out.println("ID"+ rs.getInt("id")+
+                        "|Name "+rs.getString("name")+
+                        "|Experience "+rs.getString("experience"));
+            }
+        }catch(SQLException e){
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
+

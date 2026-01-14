@@ -10,7 +10,7 @@ public abstract class Entity {
         return name;
     }
     public abstract void showInfo();
-    public abstract int hashCode();
     public abstract boolean equals(Objects obj);
+    public abstract int hashCode();
     public abstract String toString();
 }
