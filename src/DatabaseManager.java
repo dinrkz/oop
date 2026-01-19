@@ -82,8 +82,8 @@ public class DatabaseManager {
         try (Connection conn= getConnection();
              PreparedStatement ps= conn.prepareStatement(sql)){
 
-            ps.setInt(1,id);
-            ps.setString(2,location);
+            ps.setInt(2,id);
+            ps.setString(1,location);
             ps.executeUpdate();
         }catch(SQLException e) {
             System.out.println("Error saving university: " + e.getMessage());
