@@ -5,12 +5,14 @@ public class Professor extends Entity {
     private int experience;
     private String knowledge;
     private String personalqual;
-    public Professor(String name, int age, String dep, int experience, String knowledge,String personalqual){
+    private String city;
+    public Professor(String name, int age, String dep, int experience, String knowledge,String personalqual,String city){
         super(name);
         this.age=age;
         this.dep=dep;
         this.experience=experience;
         this.knowledge=knowledge;
+        this.city=city;
         if(personalqual==null|| personalqual.isEmpty() ){
             this.personalqual="Не указан";
         }else{
@@ -60,6 +62,10 @@ public class Professor extends Entity {
     public void setPersonalqual(String personalqual) {
         this.personalqual = personalqual;
     }
+    public String getCity() { return city; }
+    public void setCity(String city){ this.city=city;}
+
+
     public void showInfo(){
         System.out.println(this.toString());
     }

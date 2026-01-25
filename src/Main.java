@@ -33,8 +33,10 @@ public class Main{
                                 String knwl = in.nextLine();
                                 System.out.println("6.Enter your personal qualities (you can leave it blank)");
                                 String prq = in.nextLine();
-                                entities.add(new Professor(name, age, dep, exp, knwl, prq));
-                                dbManager.saveProfessor(new Professor(name, age, dep, exp, knwl, prq));
+                                System.out.println("7.Enter the city");
+                                String city=in.nextLine();
+                                entities.add(new Professor(name, age, dep, exp, knwl, prq,city));
+                                dbManager.saveProfessor(new Professor(name, age, dep, exp, knwl, prq,city));
                                 System.out.println("Professor successfully saved!");
                         } else if (a == 2) {
                                 System.out.println("1.Name of University:");
@@ -52,42 +54,33 @@ public class Main{
                                 dbManager.saveUniversity(new University(name, loc, edud, year, cour));
                                 System.out.println("University successfully saved!");
                         } else if (a == 3) {
-                                System.out.println("What list do you need?" + "\n");
-                                System.out.println("1-University " +
-                                        "2-Professors " +
-                                        "3-Anything ");
-                                System.out.println("Choose the number:");
-                                int s = in.nextInt();
+                                System.out.println("What do you need?"+"\n");
+                                System.out.println("1-University" +"2.Professors"+"3.Everything");
+                                System.out.println("Choose your number:");
+                                int s=in.nextInt();
                                 in.nextLine();
-                                if (s == 1) {
-                                        for (Entity i : entities) {
-                                                if (i instanceof University) i.showInfo();
+                                if(s==1){
+                                        for(Entity e:entities){
+                                                if(e instanceof University) e.showInfo();
                                         }
                                 }
-                                if (s == 2) {
-                                        for (Entity i : entities) {
-                                                if (i instanceof Professor) i.showInfo();
+                                if(s==2){
+                                        for(Entity e:entities){
+                                                if(e instanceof Professor) e.showInfo();
                                         }
                                 }
-                                if (s == 3) {
-                                        for (Entity i : entities) {
-                                                System.out.println(i.toString());
+                                if(s==3){
+                                        for(Entity e:entities){
+                                                System.out.println(e.toString());
                                         }
-                                } else {
-                                        System.out.println("Incorrect number! Returning to main menu. \n");
                                 }
                         } else if (a == 4) {
-                                System.out.println("Choosing sorting option: \n" +
-                                        "1-Professors tables \n" +
-                                        "2-University tables \n");
-                                int s = in.nextInt();
+                                System.out.println("Choose sorting table:" + "\n");
+                                System.out.println("1.University table" + "2.Professors table" + "\n");
+                                int i=in.nextInt();
                                 in.nextLine();
-                                if (s == 1) {
-                                        dbManager.ProfessorssortedbyYear();
-                                }
-                                if (s == 2) {
-                                        dbManager.UniversitiessortedbyYear();
-                                }
+                                if(i==1) dbManager.UniversitiessortedbyYear();
+                                if(i==2) dbManager.ProfessorssortedbyYear();
                         }else if (a == 5) {
                                 System.out.println("Select which database you want to delete?\n" +
                                         "1-Professors\n" +
@@ -109,6 +102,7 @@ public class Main{
                                 System.out.println("What do you want to update?\n" +
                                         "1-Location University\n" +
                                         "2-Experience Professors\n" +
+                                        "3-City Professors\n" +
                                         "Choose your number:");
                                 int p = in.nextInt();
                                 in.nextLine();
@@ -127,6 +121,12 @@ public class Main{
                                         int exp=in.nextInt();
                                         in.nextLine();
                                         dbManager.updateProfessorExperience(name,exp);
+                                }if(p==3){
+                                        System.out.println("Professor name:");
+                                        String name=in.nextLine();
+                                        System.out.println("Update City Professor:");
+                                        String city=in.nextLine();
+                                        dbManager.updateProfCity(name,city);
                                 }
 
                         }else if (a == 7) {

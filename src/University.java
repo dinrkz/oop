@@ -5,7 +5,7 @@ public class University extends Entity{
     private String course;
     private String  educationdirect;
     private int year;
-    public University(String name, String location, String educationdirect, int year, String course){
+    public University(String name, String location, String educationdirect, int year, String course) {
         super(name);
         this.location=location;
         this.educationdirect=educationdirect;
@@ -50,6 +50,8 @@ public class University extends Entity{
     public void setCourse(String course) {
         this.course = course;
     }
+
+
     public void showInfo(){
         System.out.println(this.toString());
     }

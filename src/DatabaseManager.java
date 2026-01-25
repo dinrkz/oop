@@ -27,7 +27,7 @@ public class DatabaseManager {
         }
     }
     public void saveProfessor(Professor prof) {
-        String sql = "INSERT INTO professors (name, age, department, experience, knowledge, personal_qualities) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO professors (name, age, department, experience, knowledge, personal_qualities,city) VALUES (?, ?,?, ?, ?, ?, ?)";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, prof.getName());
@@ -36,6 +36,7 @@ public class DatabaseManager {
             pstmt.setInt(4, prof.getExperience());
             pstmt.setString(5, prof.getKnowledge());
             pstmt.setString(6, prof.getPersonalqual());
+            pstmt.setString(7,prof.getCity());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error saving professor: " + e.getMessage());
@@ -101,6 +102,18 @@ public class DatabaseManager {
             System.out.println("Error saving Professor: " + e.getMessage());
         }
     }
+    public void updateProfCity(String name,String city){
+        String sql="UPDATE professors SET city = ? WHERE name = ?";
+        try(Connection conn=getConnection();
+        PreparedStatement ps=conn.prepareStatement(sql)){
+            ps.setString(1,city);
+            ps.setString(2,name);
+            ps.executeUpdate();
+        }catch(SQLException e){
+            System.out.println("Error saving Professor: " + e.getMessage());
+        }
+    }
+
 
 
 
