@@ -132,6 +132,7 @@ public class Main{
                         }else if (a == 7) {
                                 System.out.println("Program terminated");
                                 break;
+
                         }
                 }
 
