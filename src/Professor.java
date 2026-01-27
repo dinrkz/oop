@@ -63,7 +63,7 @@ public class Professor extends Entity {
         this.personalqual = personalqual;
     }
     public String getCity() { return city; }
-    public void setCity(String city){ this.city=city;}
+    public void setCity(String city){ this.city=city; }
 
 
     public void showInfo(){
