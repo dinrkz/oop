@@ -90,13 +90,13 @@ public class DatabaseManager {
             System.out.println("Error saving university: " + e.getMessage());
         }
     }
-    public void updateProfessorExperience(String name, int newExp) {
-        String sql = "UPDATE professors SET experience = ? WHERE name = ?";
+    public void updateProfessorExperience(int id, String dep) {
+        String sql = "UPDATE professors SET department = ? WHERE id = ?";
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setInt(1, newExp);
-            ps.setString(2, name);
+            ps.setString(1, dep);
+            ps.setInt(2, id);
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error saving Professor: " + e.getMessage());
@@ -151,6 +151,75 @@ public class DatabaseManager {
             }
         }catch(SQLException e){
             System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+    public void showStatistics() {
+        String sqlProf = "SELECT COUNT(*) as count, AVG(experience) as avg_exp FROM professors";
+        String sqlUni = "SELECT COUNT(*) as count FROM universities";
+
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement()) {
+            ResultSet rsP = stmt.executeQuery(sqlProf);
+            if (rsP.next()) {
+                System.out.println("--- Professor Stats ---");
+                System.out.println("Total Professors: " + rsP.getInt("count"));
+                System.out.printf("Average Experience: %.1f years\n", rsP.getDouble("avg_exp"));
+            }
+
+            ResultSet rsU = stmt.executeQuery(sqlUni);
+            if (rsU.next()) {
+                System.out.println("--- University Stats ---");
+                System.out.println("Total Universities: " + rsU.getInt("count"));
+            }
+            System.out.println("-----------------------");
+
+        } catch (SQLException e) {
+            System.out.println("Statistics error: " + e.getMessage());
+        }
+    }
+
+
+
+
+
+
+
+
+    public void searchProfessor(String keyword) {
+        String sql = "SELECT * FROM professors WHERE name ILIKE ? OR department ILIKE ? OR knowledge ILIKE ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            String pattern = "%" + keyword + "%";
+            pstmt.setString(1, pattern);
+            pstmt.setString(2, pattern);
+            pstmt.setString(3, pattern);
+
+            ResultSet rs = pstmt.executeQuery();
+            System.out.println("--- Search Results for: " + keyword + " ---");
+            boolean found = false;
+            while (rs.next()) {
+                found = true;
+                System.out.println("ID: " + rs.getInt("id") +
+                        " | Name: " + rs.getString("name") +
+                        " | Dept: " + rs.getString("department") +
+                        " | Knowledge: " + rs.getString("knowledge"));
+            }
+            if (!found) System.out.println("No professors found matching that keyword.");
+
+        } catch (SQLException e) {
+            System.out.println("Search error: " + e.getMessage());
         }
     }
 }
