@@ -104,4 +104,4 @@ The project follows Object-Oriented Programming principles:
 
 ## Author
 
-Dinrkz
+din
